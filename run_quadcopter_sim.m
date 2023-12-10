@@ -75,13 +75,13 @@ legend("w")
 grid on
 
 subplot(3, 3, 7)
-plot(t, phi)
-legend("phi")
+plot(t, theta)
+legend("theta")
 grid on
 
 subplot(3, 3, 8)
-plot(t, theta)
-legend("theta")
+plot(t, phi)
+legend("phi")
 grid on
 
 subplot(3, 3, 9)
@@ -89,16 +89,16 @@ plot(t, psi)
 legend("psi")
 grid on
 
-phi_c_calc = ans.phi_c.Data(:, 1);
-theta_c_calc = ans.theta_c.Data(:, 1);
+% phi_c_calc = ans.phi_c.Data(:, 1);
+% theta_c_calc = ans.theta_c.Data(:, 1);
 
-figure
-subplot(2, 1, 1)
-plot(t, phi_c_calc)
-legend("phi_c calc")
-grid on
-
-subplot(2, 1, 2)
-plot(t, theta_c_calc)
-legend("theta_c calc")
-grid on
+% figure
+% subplot(2, 1, 1)
+% plot(t, phi_c_calc)
+% legend("phi_c calc")
+% grid on
+% 
+% subplot(2, 1, 2)
+% plot(t, theta_c_calc)
+% legend("theta_c calc")
+% grid on
