@@ -35,7 +35,7 @@ grid on
 
 subplot(4, 1, 3)
 plot(t, yaw_rate_c)
-legend("yaw_rate_c")
+legend("yaw rate_c")
 grid on
 
 subplot(4, 1, 4)
@@ -95,10 +95,10 @@ theta_c_calc = ans.theta_c.Data(:, 1);
 figure
 subplot(2, 1, 1)
 plot(t, phi_c_calc)
-legend("phi_c_calc")
+legend("phi_c calc")
 grid on
 
 subplot(2, 1, 2)
 plot(t, theta_c_calc)
-legend("theta_c_calc")
+legend("theta_c calc")
 grid on
