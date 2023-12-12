@@ -5,12 +5,12 @@ close all
 
 centre = [0;0;-3];
 velocity = 1;
-radius = 10;
+radius = 2;
 omega = velocity/radius;
 
-sim("Copy_of_multirotor_full_system_psi0.slx");
+sim("multirotor_full_system_psi0.slx");
 t = ans.position.Time;
-
+position = ans.position;
 x = ans.position.Data(:, 1);
 y = ans.position.Data(:, 2);
 z = ans.position.Data(:, 3);
@@ -28,9 +28,20 @@ theta_c = ans.control.Data(:, 2);
 psi_c = ans.control.Data(:, 3);
 w_c = ans.control.Data(:, 4);
 
+gamma = ans.gamma;
 
 e_x = ans.e_x;
 e_y = ans.e_y;
+
+r_error = sqrt(e_x.Data.^2+e_y.Data.^2);
+
+% time_in_circle = position.Time(position.Data(:,3)<-2.999);
+% initial_gamma = gamma.Data(gamma.Time == time_in_circle(1));
+
+full_rotation_time = gamma.Time(diff(gamma.Data>=0)==-1);
+index = gamma.Time>full_rotation_time(1) & gamma.Time<=full_rotation_time(2);
+full_rotation_error = r_error(index);
+mean_error = mean(full_rotation_error);
 
 figure
 subplot(4, 1, 1)
@@ -149,5 +160,5 @@ zlabel('z Position');
 grid on;
 
 
-r_error = sqrt(e_x.Data.^2+e_y.Data.^2);
+
 
