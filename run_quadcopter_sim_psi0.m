@@ -1,8 +1,14 @@
 clc
 clear
 clear all
+close all 
 
-sim("multirotor_full_system_psi0.slx");
+centre = [0;0;-3];
+velocity = 1;
+radius = 10;
+omega = velocity/radius;
+
+sim("Copy_of_multirotor_full_system_psi0.slx");
 t = ans.position.Time;
 
 x = ans.position.Data(:, 1);
@@ -21,6 +27,10 @@ phi_c = ans.control.Data(:, 1);
 theta_c = ans.control.Data(:, 2);
 psi_c = ans.control.Data(:, 3);
 w_c = ans.control.Data(:, 4);
+
+
+e_x = ans.e_x;
+e_y = ans.e_y;
 
 figure
 subplot(4, 1, 1)
@@ -88,3 +98,56 @@ subplot(3, 3, 9)
 plot(t, psi)
 legend("psi")
 grid on
+
+
+%plot of top down circular motion 
+p = nsidedpoly(1000, 'Center', [centre(1) centre(2)], 'Radius', radius);
+
+figure
+subplot(2, 2, 1)
+hold on
+scatter(x,y,25,'filled')
+plot(p,FaceColor='g',FaceAlpha=0)
+grid on
+% colorbar
+axis equal
+title('Position of the quad over time from top');
+xlabel('x Position');
+ylabel('y Position');
+% colormap hsv
+hold off
+
+%2d plot of the motion from x axis
+subplot(2, 2, 2)
+hold on;
+scatter(x, z,25,'filled');
+title('Position of the quad over time from side');
+xlabel('x Position');
+ylabel('z Position');
+grid on
+% colormap hsv
+hold off
+
+
+%2d plot of the motion from y axis 
+subplot(2, 2, 3)
+hold on;
+scatter(y, z,25,'filled');
+title('Position of the quad over time from side');
+xlabel('y Position');
+ylabel('z Position');
+grid on
+hold off
+% 3d plot of the motion
+
+subplot(2, 2, 4)
+plot3(x, y, z, 'o','color', '[0, 0.4470, 0.7410]', MarkerFaceColor='[0, 0.4470, 0.7410]')
+title('3D Position Plot as Time Changes');
+xlabel('x Position');
+ylabel('y Position');
+zlabel('z Position');
+grid on;
+
+
+r_error = sqrt(e_x.Data.^2+e_y.Data.^2);
+
