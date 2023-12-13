@@ -28,27 +28,27 @@ xR20 = linspace(0,1,length(R20));
 
 figure 
 hold on
-plot(x0p5,r0p5,'DisplayName','velcity = 0.5')
-plot(x1,r1,'DisplayName','velcity = 1')
-plot(x2,r2,'DisplayName','velcity = 2')
-plot(x5,r5,'DisplayName','velcity = 5')
+plot(x0p5,r0p5,'DisplayName','Velcity = 0.5 m/s')
+plot(x1,r1,'DisplayName','Velcity = 1 m/s')
+plot(x2,r2,'DisplayName','Velcity = 2 m/s')
+plot(x5,r5,'DisplayName','Velcity = 5m/s')
 xlabel('Length along circle l/L')
 ylabel('Error ||r||')
 % ylim([])
 legend
-title('Error of one full rotation with R=10');
+title('Error of one full rotation with R = 10 m');
 hold off
 
 figure 
 hold on
-plot(xR2,R2,'DisplayName','Radius = 2')
-plot(x1,r1,'DisplayName','Radius = 10')
-plot(xR20,R20,'DisplayName','Radius = 20')
+plot(xR2,R2,'DisplayName','Radius = 2 m')
+plot(x1,r1,'DisplayName','Radius = 10 m')
+plot(xR20,R20,'DisplayName','Radius = 20 m')
 xlabel('Length along circle l/L')
 ylabel('Error ||r||')
 ylim([0 0.1])
 legend
-title('Error of one full rotation with V=1');
+title('Error of one full rotation with V = 1 m/s');
 hold off
 
 constant_R = [0.5, 1, 2, 5; 0.0037, 0.0141, 0.0540, 0.4605];
@@ -59,7 +59,8 @@ hold on
 plot(constant_V(1,:),constant_V(2,:),'o-')
 xlabel('Radius')
 ylabel('Mean Error')
-title('Mean error with R=10');
+title('Mean error with R = 10 m');
+% ylim([0 0.7])
 hold off
 
 figure
@@ -67,5 +68,6 @@ hold on
 plot(constant_R(1,:),constant_R(2,:),'o-')
 xlabel('Veocity')
 ylabel('Mean Error')
-title('Mean error with V=1')
+title('Mean error with V = 1 m/s')
+% ylim([0 0.7])
 hold off

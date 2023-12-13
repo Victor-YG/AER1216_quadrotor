@@ -5,10 +5,10 @@ close all
 
 centre = [0;0;-3];
 velocity = 1;
-radius = 2;
+radius = 10;
 omega = velocity/radius;
 
-sim("multirotor_full_system_psi0.slx");
+sim("Copy_of_multirotor_full_system_psi0.slx");
 t = ans.position.Time;
 position = ans.position;
 x = ans.position.Data(:, 1);
@@ -35,6 +35,8 @@ e_y = ans.e_y;
 
 r_error = sqrt(e_x.Data.^2+e_y.Data.^2);
 
+
+
 % time_in_circle = position.Time(position.Data(:,3)<-2.999);
 % initial_gamma = gamma.Data(gamma.Time == time_in_circle(1));
 
@@ -42,6 +44,7 @@ full_rotation_time = gamma.Time(diff(gamma.Data>=0)==-1);
 index = gamma.Time>full_rotation_time(1) & gamma.Time<=full_rotation_time(2);
 full_rotation_error = r_error(index);
 mean_error = mean(full_rotation_error);
+x_error = linspace(0,1,length(full_rotation_error));
 
 figure
 subplot(4, 1, 1)
@@ -160,5 +163,14 @@ zlabel('z Position');
 grid on;
 
 
+% figure 
+% hold on
+% plot(x_error,full_rotation_error)
+% xlabel('Length along circle l/L')
+% ylabel('Error ||r||')
+% % ylim([])
+% legend
+% title('Error of one full rotation with R = 10 m');
+% hold off
 
 
