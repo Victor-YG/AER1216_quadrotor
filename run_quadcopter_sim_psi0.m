@@ -8,7 +8,7 @@ velocity = 1;
 radius = 10;
 omega = velocity/radius;
 
-sim("Copy_of_multirotor_full_system_psi0.slx");
+sim("multirotor_full_system_psi0.slx");
 t = ans.position.Time;
 position = ans.position;
 x = ans.position.Data(:, 1);
@@ -41,7 +41,7 @@ r_error = sqrt(e_x.Data.^2+e_y.Data.^2);
 % initial_gamma = gamma.Data(gamma.Time == time_in_circle(1));
 
 full_rotation_time = gamma.Time(diff(gamma.Data>=0)==-1);
-index = gamma.Time>full_rotation_time(1) & gamma.Time<=full_rotation_time(2);
+index = gamma.Time>full_rotation_time(end-1) & gamma.Time<=full_rotation_time(end);
 full_rotation_error = r_error(index);
 mean_error = mean(full_rotation_error);
 x_error = linspace(0,1,length(full_rotation_error));
@@ -130,6 +130,9 @@ xlabel('x Position');
 ylabel('y Position');
 % colormap hsv
 hold off
+ax = gca;
+exportgraphics(ax,"plot-z.png","Resolution",500)
+
 
 %2d plot of the motion from x axis
 subplot(2, 2, 2)
@@ -141,7 +144,8 @@ ylabel('z Position');
 grid on
 % colormap hsv
 hold off
-
+ax = gca;
+exportgraphics(ax,"plot-x.png","Resolution",500)
 
 %2d plot of the motion from y axis 
 subplot(2, 2, 3)
@@ -152,6 +156,10 @@ xlabel('y Position');
 ylabel('z Position');
 grid on
 hold off
+
+ax = gca;
+exportgraphics(ax,"plot-y.png","Resolution",500)
+
 % 3d plot of the motion
 
 subplot(2, 2, 4)
@@ -162,15 +170,16 @@ ylabel('y Position');
 zlabel('z Position');
 grid on;
 
+ax = gca;
+exportgraphics(ax,"plot-3d.png","Resolution",500)
 
-% figure 
-% hold on
-% plot(x_error,full_rotation_error)
-% xlabel('Length along circle l/L')
-% ylabel('Error ||r||')
-% % ylim([])
-% legend
-% title('Error of one full rotation with R = 10 m');
-% hold off
+figure 
+hold on
+plot(x_error,full_rotation_error)
+xlabel('Length along circle l/L')
+ylabel('Error ||r||')
+% ylim([])
+title('Error of one full rotation with R = 10 m');
+hold off
 
 
